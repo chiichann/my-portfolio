@@ -9,7 +9,16 @@ const projectData = [
     description: "Another placeholder project description. Replace this with real content when ready.",
     techStack: "React, Tailwind",
   },
-  // add more projects here...
+  {
+    title: "Project Title 3",
+    description: "This is a third project example, showcasing additional skills and technologies.",
+    techStack: "Next.js, TypeScript, GraphQL",
+  },
+  {
+    title: "Project Title 4",
+    description: "Fourth project description with a focus on UI/UX design and accessibility improvements.",
+    techStack: "Figma, React, Styled Components",
+  },
 ];
 
 const Projects = () => {

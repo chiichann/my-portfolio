@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -58,6 +59,7 @@ const Navigation: React.FC = () => {
   const [hovered, setHovered] = useState(false);
   const navRef = useRef<HTMLUListElement>(null);
 
+  // Hide/show navbar on scroll
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -72,6 +74,7 @@ const Navigation: React.FC = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
+  // Underline animation handlers
   const handleMouseEnter = (event: React.MouseEvent<HTMLAnchorElement>) => {
     const target = event.currentTarget;
     const rect = target.getBoundingClientRect();
@@ -93,13 +96,27 @@ const Navigation: React.FC = () => {
 
   return (
     <motion.nav
-      // Animate y-position and opacity instead of mounting/unmounting
-      animate={{ y: isVisible ? 0 : -80, opacity: isVisible ? 1 : 0 }}
-      transition={{ duration: 0.2, ease: "easeInOut" }}
-      className="w-full h-20 sticky top-0 z-50 bg-black"
+      initial={{ y: -80, opacity: 0, backgroundColor: "rgba(0,0,0,0)" }}
+      animate={{
+        y: isVisible ? 0 : -80,
+        opacity: isVisible ? 1 : 0,
+        backgroundColor: isVisible ? "rgba(0,0,0,1)" : "rgba(0,0,0,0)",
+      }}
+      transition={{
+        y: { duration: 0.3, ease: "easeInOut" },
+        opacity: { duration: 0.3, ease: "easeInOut" },
+        backgroundColor: { duration: 0.6, ease: "easeInOut" },
+      }}
+      className="w-full h-20 sticky top-0 z-50"
     >
       <div className="container mx-auto px-4 h-full flex justify-between items-center">
-        <Logo />
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, type: "spring", stiffness: 300, damping: 20 }}
+        >
+          <Logo />
+        </motion.div>
         <motion.ul
           ref={navRef}
           className="relative hidden md:flex gap-x-10 mr-24"

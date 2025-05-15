@@ -91,40 +91,41 @@ const Contact = () => {
       </div>
 
       {copied && (
-        <div
-          className="fixed bg-pink-600/90 text-white px-6 py-3 rounded shadow-lg text-sm whitespace-nowrap z-50 animate-fadeInOut text-center"
-          role="alert"
-          style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
-        >
-          📧 Email copied! I will be looking forward to your message.
-        </div>
-      )}
+  <div
+    className="fixed bg-pink-600/90 text-white px-6 py-3 rounded shadow-lg text-sm whitespace-nowrap z-50 animate-fadeInOut text-center"
+    role="alert"
+    style={{ top: '1%', left: '50%', transform: 'translateX(-50%)' }}
+  >
+    📧 Email copied! I will be looking forward to your message.
+  </div>
+)}
 
-      <style jsx>{`
-        @keyframes fadeInOut {
-          0% {
-            opacity: 0;
-            transform: translate(-50%, -60%);
-          }
-          10% {
-            opacity: 1;
-            transform: translate(-50%, -50%);
-          }
-          90% {
-            opacity: 1;
-            transform: translate(-50%, -50%);
-          }
-          100% {
-            opacity: 0;
-            transform: translate(-50%, -60%);
-          }
+    <style jsx>{`
+      @keyframes fadeInOut {
+        0% {
+          opacity: 0;
+          transform: translateX(-50%);
         }
-        .animate-fadeInOut {
-          animation: fadeInOut 3s ease forwards;
+        10% {
+          opacity: 1;
+          transform: translateX(-50%);
         }
-      `}</style>
-    </section>
-  );
-};
+        90% {
+          opacity: 1;
+          transform: translateX(-50%);
+        }
+        100% {
+          opacity: 0;
+          transform: translateX(-50%);
+        }
+      }
+      .animate-fadeInOut {
+        animation: fadeInOut 3s ease forwards;
+      }
+    `}</style>
+
+        </section>
+      );
+    };
 
 export default Contact;
