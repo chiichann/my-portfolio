@@ -33,7 +33,7 @@ const projectData = [
     description:"An eco-friendly CO₂ capture device prototype designed in Figma, showcasing AI-powered monitoring and real-time emission insights for sustainable carbon capture.",
     techStack: "Figma",
     image: "/pyrocapture.jpg",
-    link: "https://www.figma.com/proto/otxZk2nLJoeDdEBGF80Q97/PyroCapture-Prototype?node-id=116-58&p=f&t=1GsKiDlX0cIf4H32-0&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=112%3A6&show-proto-sidebar=1",
+    link: "https://www.figma.com/proto/otxZk2nLJoeDdEBGF80Q97/PyroCapture-Prototype?node-id=116-58&t=Jy6ALuQFGWsyMVK9-0&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=112%3A6&show-proto-sidebar=1",
     overlayText: "View Prototype",
   }
 
