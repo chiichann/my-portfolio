@@ -33,8 +33,8 @@ const About = () => {
           {/* Image */}
           <motion.div
             variants={{
-              rest: { scale: 1 },
-              hover: { scale: 1.05 },
+              rest: { x: 0, y: 0, scale: 1 },
+              hover: { x: -8, y: -8, scale: 1.05 },
             }}
             transition={{ type: "spring", stiffness: 200, damping: 20 }}
             className="relative w-[340px] h-[520px] rounded-2xl overflow-hidden shadow-2xl ring-2 ring-pink-300 z-10"
