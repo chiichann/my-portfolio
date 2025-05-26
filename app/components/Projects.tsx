@@ -9,7 +9,7 @@ const projectData = [
     description: "A Filipino fake news classifier built with SvelteKit and Python NLP models. I primarily contributed to the branding and interface design of the platform, ensuring a clean, intuitive, and trustworthy user experience.",
     techStack: "SvelteKit, FastAPI, Scikit-learn, LIME, Figma",
     image: "/debunkr.jpg",
-    link: "https://github.com/yourusername/debunkr",
+    link: "https://github.com/hydraadra112/Debunkr",
     overlayText: "Visit GitHub Repo",
   },
   {
