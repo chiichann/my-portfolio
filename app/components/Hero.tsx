@@ -52,7 +52,7 @@ const Hero = () => {
   return (
     <motion.section
       id="hero"
-      className="min-h-screen bg-[#0f0f0f] flex flex-col md:flex-row justify-center items-start pt-16 md:pt-24 px-8 md:px-24 text-white"
+      className="min-h-screen flex flex-col md:flex-row justify-center items-start pt-16 md:pt-24 px-8 md:px-24 text-white"
       initial="hidden"
       animate="visible"
       variants={containerVariants}

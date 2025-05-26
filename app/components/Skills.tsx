@@ -1,251 +1,131 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence, useAnimation } from "framer-motion";
+import { useEffect, useRef, useState } from 'react';
+import { motion, useAnimation } from 'framer-motion';
 import {
-  SiGit,
-  SiGithub,
-  SiFigma,
-  SiJavascript,
-  SiPython,
-  SiReact,
-  SiNextdotjs,
-  SiHtml5,
-  SiTailwindcss,
-  SiCss3,
-  SiCplusplus,
-  SiAdobe,
-} from "react-icons/si";
-import { FiChevronDown } from "react-icons/fi";
+  SiGit, SiGithub, SiFigma, SiJavascript, SiPython,
+  SiReact, SiNextdotjs, SiHtml5, SiTailwindcss,
+  SiCss3, SiCplusplus, SiCanva, SiAdobe
+} from 'react-icons/si';
 
 const skillColors: Record<string, string> = {
-  Git: "#F05032",
-  GitHub: "#8a2be2",
-  Figma: "#F24E1E",
-  JavaScript: "#F7DF1E",
-  Python: "#3776AB",
-  React: "#61DAFB",
-  "Next.js": "#bbbbbb",
-  HTML5: "#E34F26",
-  TailwindCSS: "#38B2AC",
-  CSS3: "#1572B6",
-  "C++": "#00599C",
-  "Adobe Lightroom": "#31A8FF",
+  Git: '#F05032',
+  GitHub: '#8a2be2',
+  Figma: '#F24E1E',
+  JavaScript: '#F7DF1E',
+  Python: '#3776AB',
+  React: '#61DAFB',
+  'Next.js': '#bbbbbb',
+  HTML5: '#E34F26',
+  TailwindCSS: '#38B2AC',
+  CSS3: '#1572B6',
+  'C++': '#00599C',
+  Canva: '#00C4CC',
+  'Adobe Lightroom': '#31A8FF',
 };
 
 const skills = [
-  { icon: SiGit, name: "Git" },
-  { icon: SiGithub, name: "GitHub" },
-  { icon: SiFigma, name: "Figma" },
-  { icon: SiJavascript, name: "JavaScript" },
-  { icon: SiPython, name: "Python" },
-  { icon: SiReact, name: "React" },
-  { icon: SiNextdotjs, name: "Next.js" },
-  { icon: SiHtml5, name: "HTML5" },
-  { icon: SiTailwindcss, name: "TailwindCSS" },
-  { icon: SiCss3, name: "CSS3" },
-  { icon: SiCplusplus, name: "C++" },
-  { icon: SiAdobe, name: "Adobe Lightroom" },
+  { icon: SiGit, name: 'Git' },
+  { icon: SiGithub, name: 'GitHub' },
+  { icon: SiFigma, name: 'Figma' },
+  { icon: SiJavascript, name: 'JavaScript' },
+  { icon: SiPython, name: 'Python' },
+  { icon: SiReact, name: 'React' },
+  { icon: SiNextdotjs, name: 'Next.js' },
+  { icon: SiHtml5, name: 'HTML5' },
+  { icon: SiTailwindcss, name: 'TailwindCSS' },
+  { icon: SiCss3, name: 'CSS3' },
+  { icon: SiCplusplus, name: 'C++' },
+  { icon: SiCanva, name: 'Canva' },
+  { icon: SiAdobe, name: 'Adobe Lightroom' },
 ];
 
-// Duplicate skills for seamless carousel scrolling
 const duplicatedSkills = [...skills, ...skills];
-
-// Animation variants for container
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.08,
-    },
-  },
-  exit: {
-    transition: {
-      staggerChildren: 0.05,
-      staggerDirection: -1,
-    },
-  },
-};
-
-// Animation variants for each skill item with fade-in and vertical offset
-const itemVariants = {
-  hidden: { opacity: 0, y: 20, scale: 0.9 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      type: "spring",
-      stiffness: 200,
-      opacity: { duration: 0.8, ease: "easeInOut" },
-      y: { duration: 0.5 },
-      scale: { duration: 0.5 },
-    },
-  },
-  exit: {
-    opacity: 0,
-    y: 20,
-    scale: 0.9,
-    transition: { duration: 0.2 },
-  },
-};
 
 export default function Skills() {
   const containerRef = useRef<HTMLDivElement>(null);
   const animationControls = useAnimation();
   const [isHovered, setIsHovered] = useState(false);
   const [direction, setDirection] = useState(1);
-  const [collapsed, setCollapsed] = useState(false);
 
   useEffect(() => {
-    if (collapsed) {
-      animationControls.stop();
-      animationControls.set({ x: 0 });
-      return;
-    }
-
     if (isHovered) {
       animationControls.stop();
       return;
     }
 
-    const verticalAnimationDuration = 400; // ms
-    const maxDelay = (duplicatedSkills.length - 1) * 50; // max stagger delay in ms
-    const delayBeforeScroll = verticalAnimationDuration + maxDelay;
-
     const container = containerRef.current;
     if (!container) return;
 
     const scrollWidth = container.scrollWidth / 2;
-    const speed = 40; // px/s
+    const speed = 40; // pixels per second
     const duration = scrollWidth / speed;
 
-    let animationTimeout: ReturnType<typeof setTimeout>;
-
-    const startScroll = async () => {
+    const animate = async () => {
       if (direction === 1) {
         await animationControls.start({
           x: -scrollWidth,
-          transition: { duration, ease: "linear" },
+          transition: { duration, ease: 'linear' },
         });
         setDirection(-1);
       } else {
         await animationControls.start({
           x: 0,
-          transition: { duration, ease: "linear" },
+          transition: { duration, ease: 'linear' },
         });
         setDirection(1);
       }
     };
 
-    animationTimeout = setTimeout(() => {
-      startScroll();
-    }, delayBeforeScroll);
-
-    return () => {
-      clearTimeout(animationTimeout);
-    };
-  }, [direction, isHovered, animationControls, collapsed]);
-
-  const renderSkill = (
-    name: string,
-    Icon: any,
-    index: number,
-    keyPrefix = ""
-  ) => {
-    const color = skillColors[name] || "#fff";
-
-    return (
-      <motion.div
-        key={`${keyPrefix}-${name}-${index}`}
-        variants={itemVariants}
-        className="relative group flex flex-col items-center justify-center w-24 h-24 rounded-xl bg-white flex-shrink-0 transition-all duration-300 hover:scale-110"
-        style={{ boxShadow: "0 0 40px 6px transparent" }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.boxShadow = `0 0 40px 6px ${color}`;
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.boxShadow = "0 0 40px 6px transparent";
-        }}
-      >
-        <Icon size={48} color={color} />
-        <span className="absolute top-[105%] text-sm text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          {name}
-        </span>
-      </motion.div>
-    );
-  };
+    animate();
+  }, [direction, isHovered, animationControls]);
 
   return (
-    <nav id="skills">
-      <section className="bg-[#0f0f0f] py-24 w-screen overflow-hidden">
-        <h2 className="text-3xl md:text-4xl font-bold text-pink-400 mb-10 text-center">
-          What I Bring to the Table
-        </h2>
+    <section className="bg-[#0f0f0f] py-24 w-screen overflow-hidden">
+      <h2 className="text-3xl md:text-4xl font-bold text-pink-400 mb-10 text-center">
+        What I Bring to the Table
+      </h2>
 
-        <AnimatePresence mode="wait">
-          {collapsed ? (
-            <motion.div
-              key="collapsed"
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              className="flex flex-col items-center gap-12"
-            >
-              <div className="flex gap-10 justify-center flex-wrap max-w-4xl mx-auto">
-                {skills.map(({ icon, name }, i) =>
-                  renderSkill(name, icon, i, "grid")
-                )}
-              </div>
-            </motion.div>
-          ) : (
-            <motion.div
-              key="scrolling"
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              variants={containerVariants}
-              className="w-screen overflow-hidden h-[200px] py-8"
-              ref={containerRef}
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-            >
-              <motion.div
-                className="flex gap-12 will-change-transform min-w-[200%]"
-                animate={animationControls}
-                initial={{ x: 0 }}
-              >
-                {duplicatedSkills.map(({ icon, name }, i) => {
-                  const verticalOffset = i % 2 === 0 ? 0 : 20;
-                  return (
-                    <motion.div
-                      key={`scroll-${name}-${i}`}
-                      initial={{ opacity: 0, marginTop: 0 }}
-                      animate={{ opacity: 1, marginTop: verticalOffset }}
-                      transition={{ duration: 0.4, ease: "easeInOut", delay: i * 0.05 }}
-                    >
-                      {renderSkill(name, icon, i, "scroll")}
-                    </motion.div>
-                  );
-                })}
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
+      <div
+        ref={containerRef}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        className="bg-[#0f0f0f] w-screen overflow-hidden h-[200px] py-8"
+      >
         <motion.div
-          onClick={() => setCollapsed((prev) => !prev)}
-          className="mt-12 flex justify-center cursor-pointer select-none"
-          animate={{ rotate: collapsed ? 0 : 180 }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
+          className="flex gap-12 will-change-transform min-w-[200%]"
+          animate={animationControls}
+          initial={{ x: 0 }}
         >
-          <FiChevronDown
-            size={32}
-            className="text-pink-400 hover:text-pink-500 transition-colors"
-          />
+          {duplicatedSkills.map(({ icon: Icon, name }, index) => {
+            const glowColor = skillColors[name] || '#fff';
+            const iconColor = skillColors[name] || '#fff';
+            const verticalOffset = index % 2 === 0 ? 0 : 20;
+
+            return (
+              <div
+                key={`${name}-${index}`}
+                className="relative group flex flex-col items-center justify-center w-24 h-24 rounded-xl bg-white flex-shrink-0 transition-all duration-300 hover:scale-110"
+                style={{
+                  marginTop: verticalOffset,
+                  boxShadow: `0 0 40px 6px transparent`,
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget.style.boxShadow = `0 0 40px 6px ${glowColor}`);
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.boxShadow = '0 0 40px 6px transparent';
+                }}
+              >
+                <Icon size={48} color={iconColor} />
+                <span className="absolute top-[105%] text-sm text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  {name}
+                </span>
+              </div>
+            );
+          })}
         </motion.div>
-      </section>
-    </nav>
+      </div>
+    </section>
   );
 }
