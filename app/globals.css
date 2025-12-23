@@ -1,0 +1,15 @@
+@import "tailwindcss";
+@import './font/style.css';
+
+body, html, #__next {
+  overflow-x: hidden;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
