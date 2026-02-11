@@ -76,9 +76,8 @@ const Hero = () => {
             <Image src="/arrowdown.png" alt="Arrow down" width={16} height={24} />
           </a>
 
-          {/* Download CV - filled pink */}
           <a
-            href="/DEOCAMPO_RESUME.docx"
+            href="/DEOCAMPO_RESUME.pdf"
             download
             className="px-5 py-3 bg-[#FD50B9] text-white rounded-md font-semibold hover:bg-pink-600 hover:scale-105 transition transform flex items-center justify-center"
           >
